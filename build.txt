@@ -1,0 +1,7 @@
+displayName = Pop&#39;s Mods
+author = Sh0gunOfHarlem
+version = 0.0.1
+modReferences = 
+buildIgnore = *.csproj, *.user, *.vs/, bin/, obj/, .git/
+homepage = 
+description = Adds the Miner's Sack - a rare drop from enemies that contains ore, gems, and mining supplies!

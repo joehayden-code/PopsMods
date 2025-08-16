@@ -1,0 +1,6 @@
+Items: {
+	MinersSack: {
+		DisplayName: Miners Sack
+		Tooltip: ""
+	}
+}

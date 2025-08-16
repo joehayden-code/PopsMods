@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "uT4pWuXPFCU=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Joe\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\PopsMods\\PopsMods.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Joe\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+  ],
+  "logs": []
+}

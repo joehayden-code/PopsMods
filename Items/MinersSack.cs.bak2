@@ -1,0 +1,136 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.WorldBuilding;
+
+namespace PopsMods.Items
+{
+    public class MinersSack : ModItem
+    {
+        public override void SetDefaults()
+        {
+            Item.width = 32;
+            Item.height = 32;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.UseSound = SoundID.Item37;
+            Item.maxStack = 999;
+            Item.value = Item.sellPrice(0, 0, 5, 0);
+        }
+
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Miner's Sack");
+            Tooltip.SetDefault("Contains ore, gems, and mining supplies from underground expeditions");
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            RollOreDrops(player);
+            RollGemDrops(player);
+            RollExtraLoot(player);
+            return true;
+        }
+
+        private void RollOreDrops(Player player)
+        {
+            int roll = Main.rand.Next(100);
+            bool isHardmode = Main.hardMode;
+            
+            if (isHardmode)
+            {
+                // Hardmode ore drops
+                if (roll < 8) return;
+                else if (roll < 10)
+                {
+                    int amount = Main.rand.Next(8, 17);
+                    player.QuickSpawnItem(player.GetSource_ItemUse(Item), ItemID.ChlorophyteOre, amount);
+                }
+                else if (roll < 45)
+                {
+                    int amount = Main.rand.Next(5, 12);
+                    int oreType = WorldGen.cobaltBar > 0 ? ItemID.CobaltOre : ItemID.PalladiumOre;
+                    player.QuickSpawnItem(player.GetSource_ItemUse(Item), oreType, amount);
+                }
+                else if (roll < 75)
+                {
+                    int amount = Main.rand.Next(5, 12);
+                    int oreType = WorldGen.mythrilBar > 0 ? ItemID.MythrilOre : ItemID.OrichalcumOre;
+                    player.QuickSpawnItem(player.GetSource_ItemUse(Item), oreType, amount);
+                }
+                else
+                {
+                    int amount = Main.rand.Next(5, 12);
+                    int oreType = WorldGen.adamantiteBar > 0 ? ItemID.AdamantiteOre : ItemID.TitaniumOre;
+                    player.QuickSpawnItem(player.GetSource_ItemUse(Item), oreType, amount);
+                }
+            }
+            else
+            {
+                // Pre-Hardmode ore drops
+                if (roll < 10) return;
+                else if (roll < 45)
+                {
+                    int amount = Main.rand.Next(5, 12);
+                    int oreType = GenVars.copperBar > 0 ? ItemID.CopperOre : ItemID.TinOre;
+                    player.QuickSpawnItem(player.GetSource_ItemUse(Item), oreType, amount);
+                }
+                else if (roll < 75)
+                {
+                    int amount = Main.rand.Next(5, 12);
+                    int oreType = GenVars.ironBar > 0 ? ItemID.IronOre : ItemID.LeadOre;
+                    player.QuickSpawnItem(player.GetSource_ItemUse(Item), oreType, amount);
+                }
+                else
+                {
+                    int amount = Main.rand.Next(5, 12);
+                    int oreType = GenVars.goldBar > 0 ? ItemID.GoldOre : ItemID.PlatinumOre;
+                    player.QuickSpawnItem(player.GetSource_ItemUse(Item), oreType, amount);
+                }
+            }
+        }
+
+        private void RollGemDrops(Player player)
+        {
+            int roll = Main.rand.Next(100);
+            if (roll < 10) return;
+            
+            int gemRoll = Main.rand.Next(7);
+            int amount = Main.rand.Next(1, 4);
+            
+            int gemType;
+            switch (gemRoll)
+            {
+                case 0: gemType = ItemID.Diamond; break;
+                case 1: gemType = ItemID.Amber; break;
+                case 2: gemType = ItemID.Ruby; break;
+                case 3: gemType = ItemID.Emerald; break;
+                case 4: gemType = ItemID.Sapphire; break;
+                case 5: gemType = ItemID.Topaz; break;
+                default: gemType = ItemID.Amethyst; break;
+            }
+            
+            player.QuickSpawnItem(player.GetSource_ItemUse(Item), gemType, amount);
+        }
+
+        private void RollExtraLoot(Player player)
+        {
+            int roll = Main.rand.Next(100);
+            
+            if (roll < 50) return;
+            else if (roll < 75)
+            {
+                int amount = Main.rand.Next(2, 6);
+                player.QuickSpawnItem(player.GetSource_ItemUse(Item), ItemID.Torch, amount);
+            }
+            else
+            {
+                int amount = Main.rand.Next(1, 4);
+                player.QuickSpawnItem(player.GetSource_ItemUse(Item), ItemID.Bomb, amount);
+            }
+        }
+    }
+}
